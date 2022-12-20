@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+    <script src="../echarts.js"></script>
+	<script src="https://cdn.acwing.com/static/jquery/js/jquery-3.3.1.min.js"></script>
+	</head>
+
+    <style>
+        #first {
+            width: 50%;
+            float:left;
+            height: 800px;
+            /*border: 1px solid #3B6273;*/
+        }
+        #second {
+            width: 50%;
+            float:right;
+            height: 800px;
+            /*border: 1px solid #3B6273;*/
+        }
+    </style>
+
+	<body>
+		<div id="first"></div>
+		<div id="second">
+			<p>
+				<img class="tu_img" src="" width="500px" height="500px"/>
+			</p>
+		</div>
+		<script>
+			// 基于准备好的dom，初始化echarts实例
+		    var myChart = echarts.init(document.getElementById('first'));
+			data=[{'point': [-6.769403, 29.25622], 'class': 1}, {'point': [86.95441, 38.685772], 'class': 2}, {'point': [-35.73516, 51.004242], 'class': 1}, {'point': [7.0496984, 21.350035], 'class': 1}, {'point': [69.92586, -2.7030737], 'class': 2}, {'point': [68.54877, 63.524162], 'class': 2}, {'point': [8.860266, -56.693577], 'class': 3}, {'point': [-44.139668, -46.440407], 'class': 0}, {'point': [93.71753, -9.371102], 'class': 2}, {'point': [-21.856356, 9.321579], 'class': 1}, {'point': [-59.13268, 45.830673], 'class': 1}, {'point': [25.975164, -11.378225], 'class': 3}, {'point': [-67.731735, -22.384918], 'class': 0}, {'point': [-11.816715, -72.15527], 'class': 3}, {'point': [48.95108, -36.666946], 'class': 3}, {'point': [30.984993, 22.633228], 'class': 2}, {'point': [-44.20186, -66.33186], 'class': 0}, {'point': [-14.346932, -6.693749], 'class': 1}, {'point': [-47.761127, -25.888588], 'class': 0}, {'point': [29.852468, 44.71876], 'class': 2}, {'point': [-30.97464, -30.640089], 'class': 0}, {'point': [45.12068, -66.94839], 'class': 3}, {'point': [64.55398, 38.62405], 'class': 2}, {'point': [70.95038, -26.741066], 'class': 3}, {'point': [-2.802614, 51.860577], 'class': 1}, {'point': [-7.3042154, -48.41863], 'class': 3}, {'point': [89.898544, 14.810761], 'class': 2}, {'point': [43.243744, 0.32502803], 'class': 2}, {'point': [-44.327866, 12.198386], 'class': 0}, {'point': [18.23278, 61.576996], 'class': 1}, {'point': [44.12102, -18.438715], 'class': 3}, {'point': [-57.37803, 0.58867395], 'class': 0}, {'point': [-86.2562, -8.362279], 'class': 0}, {'point': [-33.511646, -9.000748], 'class': 0}, {'point': [8.453822, -34.969677], 'class': 3}, {'point': [51.01553, 50.351696], 'class': 2}, {'point': [13.454978, 37.95642], 'class': 1}, {'point': [8.340887, -14.333517], 'class': 3}, {'point': [30.978165, -58.236736], 'class': 3}, {'point': [64.85466, 14.822659], 'class': 2}, {'point': [43.214596, 69.51696], 'class': 2}, {'point': [-61.309685, -45.80962], 'class': 0}, {'point': [71.65738, -51.385727], 'class': 3}, {'point': [-28.059889, 30.011223], 'class': 1}, {'point': [-89.26428, -41.031155], 'class': 0}, {'point': [-74.38064, 17.749363], 'class': 0}, {'point': [-8.457946, -25.64955], 'class': 3}, {'point': [22.894188, 8.240029], 'class': 1}, {'point': [48.290737, 27.878744], 'class': 2}, {'point': [25.263355, -30.320099], 'class': 3}, {'point': [3.2688494, 2.2692263], 'class': 1}]
+		var axisData = [];
+		var class_all = [];
+		for (var i=0;i<data.length;i++){
+			var x=data[i].point[0];
+			var y=data[i].point[1];
+			var tep=[x,y];
+			var classid = data[i].class;
+			var tep=[x,y, classid];
+			axisData.push(tep);
+		};
+		var option={
+			xAxis:{
+				scale:true   //缩放
+			},
+			yAxis:{
+				scale:true
+			},
+			series: [{
+				// symbolSize: 8,
+				type: 'effectScatter',   //涟漪散点图
+				data: axisData,
+				showEffectOn: "emphasis"  ,  //放上后有涟漪效果
+					
+				itemStyle: {
+					// color: 'red',
+					color: function(arg) {
+						if (arg.data[2] == 0) {
+							return "red"
+						} else if (arg.data[2] == 1) {
+							return "yellow"
+						} else if (arg.data[2] == 2) {
+							return "green"
+						}else if (arg.data[2] == 3) {
+							return "blue"
+						}
+					},
+				},
+				symbolSize:20,
+			}],
+			tooltip:{
+				formatter: '({c})'
+			}
+		}
+
+		myChart.on('click', function(params) {
+			console.log(params.dataIndex);
+			if (params.componentType === 'series') {
+				// 点击到了 markPoint 上
+				let data_index = params.dataIndex.toString();
+				let lujing = "../grapg_data/" + data_index + ".png";
+				console.log(lujing);
+				$('.tu_img').attr('src',lujing);
+			}
+		});
+
+
+		myChart.setOption(option);
+		</script>
+	</body>
+</html>
+
+

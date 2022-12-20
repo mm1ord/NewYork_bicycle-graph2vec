@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>站点聚类</title>
+    <style type="text/css">
+        html {
+            height: 100%
+        }
+
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+
+        #container {
+            width: 80%;
+            margin-left: 10%;
+            height: 1000px;
+        }
+
+        #form {
+            margin-bottom: 2px;
+            margin-top: 2px;
+        }
+
+        .shadow img {
+            background: none;
+        }
+
+    </style>
+    <script type="text/javascript"
+        src="https://api.map.baidu.com/getscript?v=1.0&&type=webgl&ak=haVn19HF4mekB9dCEShvQxVYymIG9xtP"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script type="text/javascript" src="../js/CurveLine.min.js"></script>
+</head>
+
+<body>
+
+    <div id="form">
+        <label for="date">日期</label>
+        <input type="date" name="date" value="2021-09-01" onchange="changedate(this.value)" />
+        <label for="date">流量展示最小值</label>
+        <input type="data" name="minflow" value="50" onchange="changeminflow(this.value)" />
+    </div>
+    <div id="container"></div>
+</body>
+<script src="https://cdn.acwing.com/static/jquery/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../js/cluster.js"></script>
+
+</html>
